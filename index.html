@@ -3,767 +3,323 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LinguaLeap - Learn English</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.427.0/lucide.min.css">
-    <!-- Chart.js for dashboard analytics -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>LinguaLeap - Modern Language Learning</title>
+    <link rel="stylesheet" href="styles-modern.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
     <!-- Loading Screen -->
-    <div id="loading" class="loading-screen">
-        <div class="loader"></div>
-        <p>Loading LinguaLeap...</p>
-    </div>
-
-    <!-- Login Page -->
-    <div id="loginPage" class="login-page hidden">
-        <div class="login-container">
-            <div class="logo">
-                <h1>🚀 LinguaLeap</h1>
-                <p>Leap into new languages</p>
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <i class="fas fa-language"></i>
+                <h1>LinguaLeap</h1>
             </div>
-            <div class="login-card">
-                <h2>Welcome to LinguaLeap</h2>
-                <p>Sign in to continue your language journey.</p>
-                <button id="googleSignIn" class="google-signin-btn">
-                    <svg width="20" height="20" viewBox="0 0 20 20">
-                        <path fill="currentColor" d="M19.6 10.23c0-.82-.1-1.42-.25-2.05H10v3.72h5.5c-.15.96-.74 2.31-2.04 3.22v2.45h3.16c1.89-1.73 2.98-4.3 2.98-7.34z"/>
-                        <path fill="currentColor" d="M10 20c2.7 0 4.96-.89 6.62-2.41l-3.16-2.45c-.89.63-2.10 1.06-3.46 1.06-2.65 0-4.89-1.78-5.69-4.21H1.07v2.52C2.72 17.75 6.09 20 10 20z"/>
-                        <path fill="currentColor" d="M4.31 11.99c-.25-.63-.25-1.36 0-1.99V7.48H1.07A9.06 9.06 0 0 0 0 12c0 1.61.39 3.14 1.07 4.52l3.24-2.53z"/>
-                        <path fill="currentColor" d="M10 4.18c1.45 0 2.48.63 3.04 1.15l2.24-2.24C13.96 1.09 12.12.18 10 .18c-3.91 0-7.28 2.25-8.93 5.49l3.24 2.52C5.11 5.96 7.35 4.18 10 4.18z"/>
-                    </svg>
-                    Sign in with Google
-                </button>
-            </div>
+            <div class="loading-spinner"></div>
+            <p>Loading your learning journey...</p>
         </div>
     </div>
 
-    <!-- Main App -->
-    <div id="mainApp" class="hidden">
-        <!-- Sidebar -->
-        <nav class="sidebar">
-            <div class="sidebar-header">
-                <h2>🚀 LinguaLeap</h2>
-            </div>
-            <div class="sidebar-content">
-                <ul class="nav-menu">
-                    <li><a href="#" class="nav-link active" data-page="dashboard">🏠 Dashboard</a></li>
-                    <li><a href="#" class="nav-link" data-page="beginner">👶 Beginner's Journey</a></li>
-                    <li><a href="#" class="nav-link" data-page="grammar">📖 Grammar Deep Dive</a></li>
-                    <li><a href="#" class="nav-link" data-page="video">📹 Video Library</a></li>
-                    <li><a href="#" class="nav-link" data-page="quiz">🎯 AI Quiz Arena</a></li>
-                    <li><a href="#" class="nav-link" data-page="tools">🛠️ AI Tools</a></li>
-                    <li><a href="#" class="nav-link" data-page="pronunciation">🎤 Pronunciation Lab</a></li>
-                    <li><a href="#" class="nav-link" data-page="settings">⚙️ Settings</a></li>
-                </ul>
-            </div>
-            <div class="sidebar-footer">
-                <div class="user-profile">
-                    <img id="userAvatar" src="" alt="User" class="user-avatar">
-                    <div class="user-info">
-                        <p id="userName">Loading...</p>
-                        <button id="logoutBtn" class="logout-btn">Logout</button>
-                    </div>
+    <!-- Auth Container -->
+    <div id="authContainer" class="auth-container" style="display: none;">
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="auth-logo">
+                    <i class="fas fa-language"></i>
+                    <h1>LinguaLeap</h1>
                 </div>
+                <p class="auth-subtitle">Your gateway to language mastery</p>
+            </div>
+            
+            <div class="auth-content">
+                <h2>Welcome Back!</h2>
+                <p>Sign in to continue your learning journey</p>
+                
+                <button id="googleSignIn" class="google-signin-btn">
+                    <i class="fab fa-google"></i>
+                    Continue with Google
+                </button>
+                
+                <div class="auth-footer">
+                    <p>New to LinguaLeap? Get started today!</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="auth-background">
+            <div class="floating-shape shape-1"></div>
+            <div class="floating-shape shape-2"></div>
+            <div class="floating-shape shape-3"></div>
+        </div>
+    </div>
+
+    <!-- Main App Container -->
+    <div id="mainApp" class="main-app" style="display: none;">
+        <!-- Navigation -->
+        <nav class="main-nav">
+            <div class="nav-brand">
+                <i class="fas fa-language"></i>
+                <span>LinguaLeap</span>
+            </div>
+            
+            <div class="nav-menu">
+                <a href="#" class="nav-item active" data-section="dashboard">
+                    <i class="fas fa-home"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item" data-section="courses">
+                    <i class="fas fa-book"></i>
+                    <span>Courses</span>
+                </a>
+                <a href="#" class="nav-item" data-section="progress">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Progress</span>
+                </a>
+                <a href="#" class="nav-item" data-section="practice">
+                    <i class="fas fa-dumbbell"></i>
+                    <span>Practice</span>
+                </a>
+            </div>
+            
+            <div class="nav-user">
+                <div class="user-avatar">
+                    <img id="userAvatar" src="" alt="User">
+                </div>
+                <div class="user-info">
+                    <span id="userName">User</span>
+                    <span id="userLevel">Beginner</span>
+                </div>
+                <button id="signOutBtn" class="sign-out-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                </button>
             </div>
         </nav>
 
         <!-- Main Content -->
         <main class="main-content">
-            <!-- Mobile Header -->
-            <header class="mobile-header">
-                <button id="menuToggle" class="menu-toggle">☰</button>
-                <h1>LinguaLeap</h1>
-                <button id="themeToggle" class="theme-toggle">🌙</button>
-            </header>
-
-            <!-- Dashboard Page -->
-            <div id="dashboardPage" class="page active">
-                <div class="page-header">
-                    <h1>Welcome back, <span id="welcomeName">friend</span>!</h1>
-                    <p>Here's your personalized language learning dashboard. Pick up where you left off or try something new.</p>
-                </div>
-
-                <!-- Stats Cards -->
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-icon">🔥</div>
-                        <div class="stat-content">
-                            <h3>Daily Streak</h3>
-                            <p id="dailyStreak" class="stat-value">0 days</p>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">⭐</div>
-                        <div class="stat-content">
-                            <h3>Total Points</h3>
-                            <p id="totalPoints" class="stat-value">0</p>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">🏆</div>
-                        <div class="stat-content">
-                            <h3>Current Level</h3>
-                            <p id="currentLevel" class="stat-value">1</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Dashboard Charts Section (NEW) -->
-                <div class="dashboard-charts">
-                    <h2 style="margin-bottom: 1.5rem; color: var(--foreground);">📊 Your Learning Analytics</h2>
-                    
-                    <div class="charts-grid">
-                        <!-- Progress Chart -->
-                        <div class="chart-card">
-                            <h3>📈 Weekly Progress</h3>
-                            <div class="chart-container">
-                                <canvas id="progressChart" width="400" height="200"></canvas>
-                            </div>
-                        </div>
-                        
-                        <!-- Skills Breakdown -->
-                        <div class="chart-card">
-                            <h3>🎯 Skills Breakdown</h3>
-                            <div class="chart-container">
-                                <canvas id="skillsChart" width="400" height="200"></canvas>
-                            </div>
-                        </div>
-                        
-                        <!-- Activity Heatmap -->
-                        <div class="chart-card full-width">
-                            <h3>🔥 Activity Heatmap (Last 30 Days)</h3>
-                            <div class="heatmap-container" id="activityHeatmap">
-                                <!-- Heatmap will be generated here -->
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Learning Paths -->
-                <div class="learning-paths">
-                    <div class="path-card">
-                        <div class="path-icon">👶</div>
-                        <h3>Beginner's Journey</h3>
-                        <p>Start from the basics and build your foundation. Learn essential greetings, introductions, and common phrases.</p>
-                        <button class="path-btn" data-page="beginner">Start Learning →</button>
-                    </div>
-                    <div class="path-card">
-                        <div class="path-icon">📖</div>
-                        <h3>Grammar Deep Dive</h3>
-                        <p>Master the rules and structure of the language, from verb tenses to sentence construction.</p>
-                        <button class="path-btn" data-page="grammar">Start Learning →</button>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Beginner Journey Page -->
-            <div id="beginnerPage" class="page">
-                <div class="page-header">
-                    <button class="back-btn" data-page="dashboard">← Back to Dashboard</button>
-                    <h1>👶 Beginner's Journey</h1>
-                    <p>Start your English learning adventure with basic concepts and everyday conversations.</p>
+            <!-- Dashboard Section -->
+            <section id="dashboardSection" class="content-section active">
+                <div class="section-header">
+                    <h1>Welcome back! 🎉</h1>
+                    <p>Ready to continue your language learning journey?</p>
                 </div>
                 
-                <div class="lessons-grid">
-                    <div class="lesson-card">
-                        <h3>Lesson 1: Greetings & Introductions</h3>
-                        <p>Learn how to say hello, introduce yourself, and basic polite expressions.</p>
-                        <div class="lesson-progress">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>5</h3>
+                            <p>Day Streak</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>45m</h3>
+                            <p>Today's Time</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>12</h3>
+                            <p>Achievements</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <h3>Continue Learning</h3>
+                        <div class="current-lesson">
+                            <div class="lesson-info">
+                                <h4>Spanish Basics</h4>
+                                <p>Lesson 3: Greetings & Introductions</p>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 65%"></div>
+                                </div>
+                                <span class="progress-text">65% Complete</span>
+                            </div>
+                            <button class="continue-btn">
+                                <i class="fas fa-play"></i>
+                                Continue
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-card">
+                        <h3>Daily Goals</h3>
+                        <div class="goals-list">
+                            <div class="goal-item completed">
+                                <i class="fas fa-check"></i>
+                                <span>Complete 1 lesson</span>
+                            </div>
+                            <div class="goal-item completed">
+                                <i class="fas fa-check"></i>
+                                <span>Practice for 15 minutes</span>
+                            </div>
+                            <div class="goal-item">
+                                <i class="fas fa-circle"></i>
+                                <span>Review 10 vocabulary words</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Courses Section -->
+            <section id="coursesSection" class="content-section">
+                <div class="section-header">
+                    <h1>Your Courses</h1>
+                    <p>Choose a language and start your journey</p>
+                </div>
+                
+                <div class="courses-grid">
+                    <div class="course-card active">
+                        <div class="course-flag">🇪🇸</div>
+                        <h3>Spanish</h3>
+                        <p>Beginner • 24 lessons</p>
+                        <div class="course-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 30%"></div>
+                            </div>
+                            <span>30% Complete</span>
+                        </div>
+                        <button class="course-btn">Continue</button>
+                    </div>
+                    
+                    <div class="course-card">
+                        <div class="course-flag">🇫🇷</div>
+                        <h3>French</h3>
+                        <p>Beginner • 28 lessons</p>
+                        <div class="course-progress">
                             <div class="progress-bar">
                                 <div class="progress-fill" style="width: 0%"></div>
                             </div>
-                            <span>0% Complete</span>
+                            <span>Start Course</span>
                         </div>
-                        <button class="lesson-btn">Start Lesson</button>
+                        <button class="course-btn">Start</button>
                     </div>
                     
-                    <div class="lesson-card locked">
-                        <h3>Lesson 2: Numbers & Time</h3>
-                        <p>Master numbers, dates, and telling time in English.</p>
-                        <div class="lesson-progress">
-                            <span>🔒 Complete Lesson 1 to unlock</span>
+                    <div class="course-card">
+                        <div class="course-flag">🇩🇪</div>
+                        <h3>German</h3>
+                        <p>Beginner • 30 lessons</p>
+                        <div class="course-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 0%"></div>
+                            </div>
+                            <span>Start Course</span>
                         </div>
-                    </div>
-                    
-                    <div class="lesson-card locked">
-                        <h3>Lesson 3: Family & Relationships</h3>
-                        <p>Vocabulary and phrases about family members and relationships.</p>
-                        <div class="lesson-progress">
-                            <span>🔒 Complete Lesson 2 to unlock</span>
-                        </div>
+                        <button class="course-btn">Start</button>
                     </div>
                 </div>
-            </div>
+            </section>
 
-            <!-- Grammar Page -->
-            <div id="grammarPage" class="page">
-                <div class="page-header">
-                    <button class="back-btn" data-page="dashboard">← Back to Dashboard</button>
-                    <h1>📖 Grammar Deep Dive</h1>
-                    <p>Master English grammar with detailed explanations and practice exercises.</p>
+            <!-- Progress Section -->
+            <section id="progressSection" class="content-section">
+                <div class="section-header">
+                    <h1>Your Progress</h1>
+                    <p>Track your learning journey and achievements</p>
                 </div>
                 
-                <div class="grammar-topics">
-                    <div class="topic-card">
-                        <h3>Basic Foundation</h3>
-                        <p>Essential grammar concepts including alphabet, words, and articles.</p>
-                        <button class="topic-btn">Study Now</button>
+                <div class="progress-overview">
+                    <div class="progress-card">
+                        <h3>Weekly Activity</h3>
+                        <div class="activity-chart">
+                            <div class="chart-placeholder">
+                                <i class="fas fa-chart-bar"></i>
+                                <p>Activity chart will appear here</p>
+                            </div>
+                        </div>
                     </div>
                     
-                    <div class="topic-card">
-                        <h3>Sentence Structure</h3>
-                        <p>Learn how to build proper English sentences and word order.</p>
-                        <button class="topic-btn">Study Now</button>
+                    <div class="progress-card">
+                        <h3>Achievements</h3>
+                        <div class="achievements-grid">
+                            <div class="achievement earned">
+                                <i class="fas fa-fire"></i>
+                                <span>5 Day Streak</span>
+                            </div>
+                            <div class="achievement earned">
+                                <i class="fas fa-star"></i>
+                                <span>First Lesson</span>
+                            </div>
+                            <div class="achievement">
+                                <i class="fas fa-trophy"></i>
+                                <span>10 Day Streak</span>
+                            </div>
+                            <div class="achievement">
+                                <i class="fas fa-medal"></i>
+                                <span>Course Complete</span>
+                            </div>
+                        </div>
                     </div>
-                    
-                    <div class="topic-card">
-                        <h3>Parts of Speech</h3>
-                        <p>Master nouns, verbs, adjectives, and other parts of speech.</p>
-                        <button class="topic-btn">Study Now</button>
-                    </div>
                 </div>
-            </div>
+            </section>
 
-            <!-- Other pages placeholder -->
-            <div id="quizPage" class="page">
-                <div class="page-header">
-                    <button class="back-btn" data-page="dashboard">← Back to Dashboard</button>
-                    <h1>🎯 AI Quiz Arena</h1>
-                    <p>Test your knowledge with AI-generated quizzes.</p>
-                </div>
-                <div class="coming-soon">
-                    <h2>🚧 Coming Soon!</h2>
-                    <p>AI-powered quizzes are under development.</p>
-                </div>
-            </div>
-
-            <div id="toolsPage" class="page">
-                <div class="page-header">
-                    <button class="back-btn" data-page="dashboard">← Back to Dashboard</button>
-                    <h1>🛠️ AI Tools Arena</h1>
-                    <p>Advanced AI tools for language learning.</p>
-                </div>
-                <div class="coming-soon">
-                    <h2>🚧 Coming Soon!</h2>
-                    <p>AI tools are under development.</p>
-                </div>
-            </div>
-
-            <div id="pronunciationPage" class="page">
-                <div class="page-header">
-                    <button class="back-btn" data-page="dashboard">← Back to Dashboard</button>
-                    <h1>🎤 Pronunciation Lab</h1>
-                    <p>Practice your English pronunciation with AI feedback.</p>
-                </div>
-                <div class="coming-soon">
-                    <h2>🚧 Coming Soon!</h2>
-                    <p>Pronunciation tools are under development.</p>
-                </div>
-            </div>
-
-            <!-- Video Library Page (NEW) -->
-            <div id="videoPage" class="page">
-                <div class="page-header">
-                    <button class="back-btn" data-page="dashboard">← Back to Dashboard</button>
-                    <h1>📹 Video Library</h1>
-                    <p>Learn English through carefully curated educational videos organized by categories and difficulty levels.</p>
+            <!-- Practice Section -->
+            <section id="practiceSection" class="content-section">
+                <div class="section-header">
+                    <h1>Practice Hub</h1>
+                    <p>Sharpen your skills with focused practice</p>
                 </div>
                 
-                <!-- Video Categories Filter -->
-                <div class="video-filters">
-                    <h3>🔍 Filter by Category</h3>
-                    <div class="filter-buttons">
-                        <button class="filter-btn active" data-category="all">All Videos</button>
-                        <button class="filter-btn" data-category="grammar">📝 Grammar</button>
-                        <button class="filter-btn" data-category="pronunciation">🗣️ Pronunciation</button>
-                        <button class="filter-btn" data-category="vocabulary">📚 Vocabulary</button>
-                        <button class="filter-btn" data-category="conversation">💬 Conversation</button>
-                    </div>
-                </div>
-                
-                <!-- Video Grid -->
-                <div id="videoGrid" class="video-grid">
-                    <div class="loading-placeholder">
-                        <div class="loader"></div>
-                        <p>Loading videos...</p>
-                    </div>
-                </div>
-                
-                <!-- Video Modal -->
-                <div id="videoModal" class="video-modal hidden">
-                    <div class="video-modal-content">
-                        <div class="video-modal-header">
-                            <h3 id="modalVideoTitle">Video Title</h3>
-                            <button class="modal-close" onclick="closeVideoModal()">×</button>
+                <div class="practice-grid">
+                    <div class="practice-card">
+                        <div class="practice-icon">
+                            <i class="fas fa-microphone"></i>
                         </div>
-                        <div class="video-modal-body">
-                            <div class="video-player">
-                                <iframe id="videoPlayer" width="100%" height="400" frameborder="0" allowfullscreen></iframe>
-                            </div>
-                            <div class="video-info">
-                                <div class="video-meta">
-                                    <span class="video-category" id="modalVideoCategory">Category</span>
-                                    <span class="video-level" id="modalVideoLevel">Level</span>
-                                    <span class="video-duration" id="modalVideoDuration">Duration</span>
-                                </div>
-                                <div class="video-description" id="modalVideoDescription">
-                                    Video description will appear here...
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- AI Quiz Arena Page -->
-            <div id="quizPage" class="page">
-                <div class="page-header">
-                    <button class="back-btn" data-page="dashboard">← Back to Dashboard</button>
-                    <h1>🎯 AI Quiz Arena</h1>
-                    <p>Challenge yourself with AI-generated quizzes and improve your English skills!</p>
-                </div>
-                
-                <div class="quiz-container">
-                    <!-- Quiz Configuration -->
-                    <div class="quiz-config-card">
-                        <h3>🔧 Quiz Configuration</h3>
-                        <div class="form-group">
-                            <label>Quiz Topic</label>
-                            <select id="quizTopic">
-                                <option value="general">General English</option>
-                                <option value="grammar">Grammar Focus</option>
-                                <option value="vocabulary">Vocabulary Building</option>
-                                <option value="tenses">Verb Tenses</option>
-                                <option value="prepositions">Prepositions</option>
-                                <option value="idioms">Idioms & Phrases</option>
-                                <option value="business">Business English</option>
-                                <option value="travel">Travel English</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Difficulty Level</label>
-                            <select id="quizDifficulty">
-                                <option value="beginner">🟢 Beginner</option>
-                                <option value="intermediate">🟡 Intermediate</option>
-                                <option value="advanced">🔴 Advanced</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label>Number of Questions</label>
-                            <select id="quizQuestions">
-                                <option value="5">5 Questions</option>
-                                <option value="10" selected>10 Questions</option>
-                                <option value="15">15 Questions</option>
-                                <option value="20">20 Questions</option>
-                            </select>
-                        </div>
-                        
-                        <button id="generateQuizBtn" class="ai-btn primary">
-                            🤖 Generate AI Quiz
-                        </button>
+                        <h3>Speaking Practice</h3>
+                        <p>Improve your pronunciation and fluency</p>
+                        <button class="practice-btn">Start Speaking</button>
                     </div>
                     
-                    <!-- Quiz Display Area -->
-                    <div id="quizDisplay" class="quiz-display hidden">
-                        <div class="quiz-header">
-                            <div class="quiz-progress">
-                                <div class="progress-bar">
-                                    <div id="quizProgressFill" class="progress-fill"></div>
-                                </div>
-                                <span id="quizProgressText">Question 1 of 10</span>
-                            </div>
-                            <div class="quiz-timer">
-                                <span id="quizTimer">⏱️ 00:00</span>
-                            </div>
+                    <div class="practice-card">
+                        <div class="practice-icon">
+                            <i class="fas fa-headphones"></i>
                         </div>
-                        
-                        <div class="question-card">
-                            <h3 id="questionText">Loading question...</h3>
-                            <div id="questionOptions" class="question-options">
-                                <!-- Options will be generated here -->
-                            </div>
-                            <div class="question-actions">
-                                <button id="prevQuestionBtn" class="ai-btn secondary">← Previous</button>
-                                <button id="nextQuestionBtn" class="ai-btn primary">Next →</button>
-                                <button id="finishQuizBtn" class="ai-btn success hidden">🏁 Finish Quiz</button>
-                            </div>
-                        </div>
+                        <h3>Listening Exercise</h3>
+                        <p>Train your ear with native speakers</p>
+                        <button class="practice-btn">Start Listening</button>
                     </div>
                     
-                    <!-- Quiz Results -->
-                    <div id="quizResults" class="quiz-results hidden">
-                        <div class="results-header">
-                            <h2>🎉 Quiz Complete!</h2>
-                            <div class="score-display">
-                                <div class="score-circle">
-                                    <span id="finalScore">0%</span>
-                                </div>
-                            </div>
+                    <div class="practice-card">
+                        <div class="practice-icon">
+                            <i class="fas fa-spell-check"></i>
                         </div>
-                        
-                        <div class="results-details">
-                            <div class="stat-card">
-                                <h4>📊 Your Performance</h4>
-                                <p>Correct Answers: <span id="correctAnswers">0</span></p>
-                                <p>Total Questions: <span id="totalQuestions">0</span></p>
-                                <p>Time Taken: <span id="timeTaken">0:00</span></p>
-                                <p>Accuracy: <span id="accuracyRate">0%</span></p>
-                            </div>
-                            
-                            <div class="improvement-tips">
-                                <h4>💡 AI Recommendations</h4>
-                                <div id="aiRecommendations">
-                                    <!-- AI-generated recommendations will appear here -->
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="results-actions">
-                            <button id="retakeQuizBtn" class="ai-btn primary">🔄 Retake Quiz</button>
-                            <button id="newQuizBtn" class="ai-btn secondary">🆕 New Quiz</button>
-                            <button id="shareResultsBtn" class="ai-btn success">📤 Share Results</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- AI Tools Page -->
-            <div id="toolsPage" class="page">
-                <div class="page-header">
-                    <button class="back-btn" data-page="dashboard">← Back to Dashboard</button>
-                    <h1>🛠️ AI Tools Arena</h1>
-                    <p>Powerful AI-driven tools to enhance your English learning experience!</p>
-                </div>
-                
-                <div class="tools-grid">
-                    <!-- Daily Practice Generator -->
-                    <div class="tool-card" id="practiceGenerator">
-                        <div class="tool-header">
-                            <div class="tool-icon">📅</div>
-                            <h3>Daily Practice Generator</h3>
-                            <span class="api-badge">OpenRouter API 1</span>
-                        </div>
-                        <p>Generate personalized daily practice exercises based on your learning level and goals.</p>
-                        
-                        <div class="tool-config">
-                            <div class="form-group">
-                                <label>Practice Type</label>
-                                <select id="practiceType">
-                                    <option value="mixed">Mixed Practice</option>
-                                    <option value="grammar">Grammar Focus</option>
-                                    <option value="vocabulary">Vocabulary Building</option>
-                                    <option value="reading">Reading Comprehension</option>
-                                    <option value="writing">Writing Practice</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>Duration</label>
-                                <select id="practiceDuration">
-                                    <option value="5">5 minutes</option>
-                                    <option value="10" selected>10 minutes</option>
-                                    <option value="15">15 minutes</option>
-                                    <option value="30">30 minutes</option>
-                                </select>
-                            </div>
-                            
-                            <button class="ai-btn primary" onclick="generateDailyPractice()">
-                                🤖 Generate Practice
-                            </button>
-                        </div>
-                        
-                        <div id="practiceOutput" class="tool-output hidden">
-                            <!-- Generated practice will appear here -->
-                        </div>
+                        <h3>Vocabulary Quiz</h3>
+                        <p>Test your word knowledge</p>
+                        <button class="practice-btn">Take Quiz</button>
                     </div>
                     
-                    <!-- Sentence Improver -->
-                    <div class="tool-card" id="sentenceImprover">
-                        <div class="tool-header">
-                            <div class="tool-icon">✨</div>
-                            <h3>Sentence Improver</h3>
-                            <span class="api-badge">OpenRouter API 1</span>
+                    <div class="practice-card">
+                        <div class="practice-icon">
+                            <i class="fas fa-pen"></i>
                         </div>
-                        <p>Improve your sentences with AI-powered suggestions for better grammar, style, and clarity.</p>
-                        
-                        <div class="tool-config">
-                            <div class="form-group">
-                                <label>Enter your sentence</label>
-                                <textarea id="inputSentence" placeholder="Type your sentence here..." rows="3"></textarea>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>Improvement Focus</label>
-                                <select id="improvementFocus">
-                                    <option value="all">Overall Improvement</option>
-                                    <option value="grammar">Grammar Only</option>
-                                    <option value="style">Style & Flow</option>
-                                    <option value="clarity">Clarity & Conciseness</option>
-                                    <option value="formal">Formal Tone</option>
-                                    <option value="casual">Casual Tone</option>
-                                </select>
-                            </div>
-                            
-                            <button class="ai-btn primary" onclick="improveSentence()">
-                                ✨ Improve Sentence
-                            </button>
-                        </div>
-                        
-                        <div id="sentenceOutput" class="tool-output hidden">
-                            <!-- Improved sentences will appear here -->
-                        </div>
-                    </div>
-                    
-                    <!-- Grammar Tool Assistant -->
-                    <div class="tool-card" id="grammarAssistant">
-                        <div class="tool-header">
-                            <div class="tool-icon">📚</div>
-                            <h3>Grammar Tool Assistant</h3>
-                            <span class="api-badge">OpenRouter API 2</span>
-                        </div>
-                        <p>Get detailed grammar explanations, rules, and examples for any grammar topic.</p>
-                        
-                        <div class="tool-config">
-                            <div class="form-group">
-                                <label>Grammar Topic or Question</label>
-                                <textarea id="grammarQuery" placeholder="Ask about any grammar topic... e.g., 'Explain present perfect tense'" rows="3"></textarea>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>Response Type</label>
-                                <select id="grammarResponseType">
-                                    <option value="explanation">Detailed Explanation</option>
-                                    <option value="examples">Examples & Usage</option>
-                                    <option value="rules">Rules & Guidelines</option>
-                                    <option value="exercises">Practice Exercises</option>
-                                    <option value="comparison">Compare Similar Topics</option>
-                                </select>
-                            </div>
-                            
-                            <button class="ai-btn primary" onclick="getGrammarHelp()">
-                                📚 Get Grammar Help
-                            </button>
-                        </div>
-                        
-                        <div id="grammarOutput" class="tool-output hidden">
-                            <!-- Grammar explanations will appear here -->
-                        </div>
-                    </div>
-                    
-                    <!-- AI Story Generator -->
-                    <div class="tool-card" id="storyGenerator">
-                        <div class="tool-header">
-                            <div class="tool-icon">📖</div>
-                            <h3>AI Story Generator</h3>
-                            <span class="api-badge">OpenRouter API 2</span>
-                        </div>
-                        <p>Create engaging stories for reading practice with customizable themes and difficulty levels.</p>
-                        
-                        <div class="tool-config">
-                            <div class="form-group">
-                                <label>Story Theme</label>
-                                <select id="storyTheme">
-                                    <option value="adventure">🗺️ Adventure</option>
-                                    <option value="mystery">🔍 Mystery</option>
-                                    <option value="friendship">👫 Friendship</option>
-                                    <option value="family">👨‍👩‍👧‍👦 Family</option>
-                                    <option value="travel">✈️ Travel</option>
-                                    <option value="business">💼 Business</option>
-                                    <option value="science">🔬 Science Fiction</option>
-                                    <option value="historical">🏛️ Historical</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>Story Length</label>
-                                <select id="storyLength">
-                                    <option value="short">Short (100-200 words)</option>
-                                    <option value="medium" selected>Medium (300-500 words)</option>
-                                    <option value="long">Long (500-800 words)</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>Language Level</label>
-                                <select id="storyLevel">
-                                    <option value="beginner">Beginner Vocabulary</option>
-                                    <option value="intermediate" selected>Intermediate Vocabulary</option>
-                                    <option value="advanced">Advanced Vocabulary</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>Custom Theme (Optional)</label>
-                                <input type="text" id="customTheme" placeholder="e.g., 'A day in the life of a chef'">
-                            </div>
-                            
-                            <button class="ai-btn primary" onclick="generateStory()">
-                                📖 Generate Story
-                            </button>
-                        </div>
-                        
-                        <div id="storyOutput" class="tool-output hidden">
-                            <!-- Generated stories will appear here -->
-                        </div>
+                        <h3>Writing Practice</h3>
+                        <p>Practice writing in your target language</p>
+                        <button class="practice-btn">Start Writing</button>
                     </div>
                 </div>
-            </div>
-
-            <!-- Settings Page -->
-            <div id="settingsPage" class="page">
-                <div class="page-header">
-                    <button class="back-btn" data-page="dashboard">← Back to Dashboard</button>
-                    <h1>⚙️ Settings</h1>
-                    <p>Customize your LinguaLeap experience and configure API keys.</p>
-                </div>
-                
-                <div class="settings-container">
-                    <!-- Theme Settings -->
-                    <div class="settings-section">
-                        <h2>🎨 Theme Settings</h2>
-                        <div class="theme-options">
-                            <label class="theme-option">
-                                <input type="radio" name="theme" value="light" checked>
-                                <span class="theme-preview light">
-                                    <div class="theme-preview-header"></div>
-                                    <div class="theme-preview-content"></div>
-                                </span>
-                                <span class="theme-label">☀️ Light Theme</span>
-                            </label>
-                            
-                            <label class="theme-option">
-                                <input type="radio" name="theme" value="dark">
-                                <span class="theme-preview dark">
-                                    <div class="theme-preview-header"></div>
-                                    <div class="theme-preview-content"></div>
-                                </span>
-                                <span class="theme-label">🌙 Dark Theme</span>
-                            </label>
-                        </div>
-                    </div>
-                    
-                    <!-- API Configuration -->
-                    <div class="settings-section">
-                        <h2>🔑 AI API Configuration</h2>
-                        <p class="api-description">Configure your own API keys to use AI features. Your keys are stored locally and securely.</p>
-                        
-                        <div class="api-cards">
-                            <!-- OpenRouter API -->
-                            <div class="api-card">
-                                <div class="api-header">
-                                    <h3>🚀 OpenRouter API</h3>
-                                    <span class="api-status" id="openrouterStatus">❌ Not Configured</span>
-                                </div>
-                                <p class="api-usage"><strong>Used for:</strong> Grammar Checker, Essay Generator, Story Generator</p>
-                                <div class="api-input-group">
-                                    <input type="password" id="openrouterKey" placeholder="Enter your OpenRouter API key">
-                                    <button class="api-btn" onclick="saveApiKey('openrouter')">💾 Save</button>
-                                    <button class="api-btn test" onclick="testApiKey('openrouter')">🧪 Test</button>
-                                </div>
-                                <p class="api-help">Get your API key from <a href="https://openrouter.ai" target="_blank">openrouter.ai</a></p>
-                            </div>
-                            
-                            <!-- Gemini API -->
-                            <div class="api-card">
-                                <div class="api-header">
-                                    <h3>💎 Google Gemini API</h3>
-                                    <span class="api-status" id="geminiStatus">❌ Not Configured</span>
-                                </div>
-                                <p class="api-usage"><strong>Used for:</strong> Daily Practice Generator, Quiz Generator</p>
-                                <div class="api-input-group">
-                                    <input type="password" id="geminiKey" placeholder="Enter your Gemini API key">
-                                    <button class="api-btn" onclick="saveApiKey('gemini')">💾 Save</button>
-                                    <button class="api-btn test" onclick="testApiKey('gemini')">🧪 Test</button>
-                                </div>
-                                <p class="api-help">Get your API key from <a href="https://makersuite.google.com/app/apikey" target="_blank">Google AI Studio</a></p>
-                            </div>
-                            
-                            <!-- Claude API -->
-                            <div class="api-card">
-                                <div class="api-header">
-                                    <h3>🤖 Anthropic Claude API</h3>
-                                    <span class="api-status" id="claudeStatus">❌ Not Configured</span>
-                                </div>
-                                <p class="api-usage"><strong>Used for:</strong> Advanced Writing Assistant, Complex Grammar Analysis</p>
-                                <div class="api-input-group">
-                                    <input type="password" id="claudeKey" placeholder="Enter your Claude API key">
-                                    <button class="api-btn" onclick="saveApiKey('claude')">💾 Save</button>
-                                    <button class="api-btn test" onclick="testApiKey('claude')">🧪 Test</button>
-                                </div>
-                                <p class="api-help">Get your API key from <a href="https://console.anthropic.com/" target="_blank">Anthropic Console</a></p>
-                            </div>
-                            
-                            <!-- OpenAI API -->
-                            <div class="api-card">
-                                <div class="api-header">
-                                    <h3>🧠 OpenAI API</h3>
-                                    <span class="api-status" id="openaiStatus">❌ Not Configured</span>
-                                </div>
-                                <p class="api-usage"><strong>Used for:</strong> Pronunciation Analysis, Advanced Conversation Practice</p>
-                                <div class="api-input-group">
-                                    <input type="password" id="openaiKey" placeholder="Enter your OpenAI API key">
-                                    <button class="api-btn" onclick="saveApiKey('openai')">💾 Save</button>
-                                    <button class="api-btn test" onclick="testApiKey('openai')">🧪 Test</button>
-                                </div>
-                                <p class="api-help">Get your API key from <a href="https://platform.openai.com/api-keys" target="_blank">OpenAI Platform</a></p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- AI Debug Monitor -->
-                    <div class="settings-section">
-                        <h2>🔍 AI Debug Monitor</h2>
-                        <p>Monitor API requests and responses for debugging purposes.</p>
-                        <div class="debug-controls">
-                            <label class="debug-toggle">
-                                <input type="checkbox" id="debugMode" onchange="toggleDebugMode()">
-                                <span class="toggle-slider"></span>
-                                <span class="toggle-label">Enable Debug Logging</span>
-                            </label>
-                            <button class="debug-btn" onclick="clearDebugLogs()">🗑️ Clear Logs</button>
-                            <button class="debug-btn" onclick="downloadDebugLogs()">📥 Download Logs</button>
-                        </div>
-                        
-                        <div id="debugLogs" class="debug-logs hidden">
-                            <h3>Recent API Calls:</h3>
-                            <div id="debugLogsList" class="debug-logs-list">
-                                <p>Debug logging is disabled. Enable it to see API requests and responses.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div id="videoPage" class="page">
-                <div class="page-header">
-                    <button class="back-btn" data-page="dashboard">← Back to Dashboard</button>
-                    <h1>📹 Video Library</h1>
-                    <p>Learn with interactive video content.</p>
-                </div>
-                <div class="coming-soon">
-                    <h2>🚧 Coming Soon!</h2>
-                    <p>Video library is under development.</p>
-                </div>
-            </div>
+            </section>
         </main>
     </div>
 
-    <!-- Firebase SDKs -->
-    <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore-compat.js"></script>
-    
-    <!-- Custom Scripts -->
+    <!-- Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
     <script src="firebase-config.js"></script>
-    <script src="dashboard-charts.js"></script>
-    <script src="video-library.js"></script>
     <script src="app.js"></script>
-    <script src="ai-tools.js"></script>
 </body>
 </html>

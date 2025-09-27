@@ -1,265 +1,304 @@
-// Firebase Configuration
+// ===== FIREBASE CONFIGURATION =====
+
+// Firebase configuration object
 const firebaseConfig = {
-    apiKey: "AIzaSyA6vgbuxtvA0t__uBXpcxlHNmKGX6swF2I",
-    authDomain: "lingualeap-3535f.firebaseapp.com",
-    projectId: "lingualeap-3535f",
-    storageBucket: "lingualeap-3535f.firebasestorage.app",
-    messagingSenderId: "464130080922",
-    appId: "1:464130080922:web:2a4d9afe1da32ee4b4df23"
+    apiKey: "AIzaSyBXYZ123...", // Replace with your actual API key
+    authDomain: "lingualeap-project.firebaseapp.com", // Replace with your domain
+    projectId: "lingualeap-project", // Replace with your project ID
+    storageBucket: "lingualeap-project.appspot.com", // Replace with your storage bucket
+    messagingSenderId: "123456789", // Replace with your sender ID
+    appId: "1:123456789:web:abcdef123456" // Replace with your app ID
 };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-const db = firebase.firestore();
+try {
+    firebase.initializeApp(firebaseConfig);
+    console.log('🔥 Firebase initialized successfully');
+} catch (error) {
+    console.error('❌ Firebase initialization failed:', error);
+}
 
-// Test Firebase connection
-async function testFirebaseConnection() {
-    console.log("--- Starting Firebase Connection Test ---");
-    const testDocRef = db.collection('test_connection').doc('test_doc');
-    
+// ===== FIRESTORE HELPER FUNCTIONS =====
+
+// Save chapter data to Firestore
+async function saveChapterToFirestore(chapterData) {
     try {
-        console.log("Attempting to write to test_connection/test_doc...");
-        await testDocRef.set({
-            status: "ok",
-            timestamp: new Date()
+        const db = firebase.firestore();
+        const docRef = await db.collection('chapters').add({
+            ...chapterData,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
         });
-        console.log("✅ Firestore Write Successful!");
         
-        console.log("Attempting to read from test_connection/test_doc...");
-        const docSnap = await testDocRef.get();
-        if (docSnap.exists) {
-            console.log("✅ Firestore Read Successful!");
-            console.log("Document data:", docSnap.data());
-        } else {
-            console.error("❌ Firestore Read FAILED: Document does not exist after successful write.");
+        console.log('✅ Chapter saved with ID:', docRef.id);
+        return { success: true, id: docRef.id };
+        
+    } catch (error) {
+        console.error('❌ Error saving chapter:', error);
+        return { success: false, error: error.message };
+    }
+}
+
+// Load chapters from Firestore
+async function loadChaptersFromFirestore(courseFilter = null) {
+    try {
+        const db = firebase.firestore();
+        let query = db.collection('chapters').orderBy('order', 'asc');
+        
+        if (courseFilter) {
+            query = query.where('course', '==', courseFilter);
         }
+        
+        const snapshot = await query.get();
+        const chapters = [];
+        
+        snapshot.forEach(doc => {
+            chapters.push({
+                id: doc.id,
+                ...doc.data()
+            });
+        });
+        
+        console.log(`✅ Loaded ${chapters.length} chapters from Firestore`);
+        return { success: true, chapters };
+        
     } catch (error) {
-        console.error("❌ Firebase Connection FAILED:", error);
-    } finally {
-        console.log("--- Firebase Connection Test Finished ---");
+        console.error('❌ Error loading chapters:', error);
+        return { success: false, error: error.message };
     }
 }
 
-// Upload data to Firestore
-async function uploadData(collectionName, docId, data) {
+// Update chapter in Firestore
+async function updateChapterInFirestore(chapterId, updateData) {
     try {
-        await db.collection(collectionName).doc(docId).set(data, { merge: true });
-        console.log(`Successfully uploaded data to ${collectionName}/${docId}`);
+        const db = firebase.firestore();
+        await db.collection('chapters').doc(chapterId).update({
+            ...updateData,
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+        
+        console.log('✅ Chapter updated successfully');
+        return { success: true };
+        
     } catch (error) {
-        console.error(`Error uploading data to ${collectionName}/${docId}:`, error);
+        console.error('❌ Error updating chapter:', error);
+        return { success: false, error: error.message };
     }
 }
 
-// Fetch data from Firestore
-async function fetchData(collectionName, docId) {
+// Delete chapter from Firestore
+async function deleteChapterFromFirestore(chapterId) {
     try {
-        const docRef = db.collection(collectionName).doc(docId);
-        const docSnap = await docRef.get();
-        if (docSnap.exists) {
-            console.log(`Successfully fetched data from ${collectionName}/${docId}`);
-            return docSnap.data();
-        } else {
-            console.log(`No such document found at ${collectionName}/${docId}`);
-            return null;
-        }
+        const db = firebase.firestore();
+        await db.collection('chapters').doc(chapterId).delete();
+        
+        console.log('✅ Chapter deleted successfully');
+        return { success: true };
+        
     } catch (error) {
-        console.error(`Error fetching data from ${collectionName}/${docId}:`, error);
-        return null;
+        console.error('❌ Error deleting chapter:', error);
+        return { success: false, error: error.message };
     }
 }
 
-// Update daily streak
-async function updateDailyStreak(userId) {
+// Save user data to Firestore
+async function saveUserToFirestore(userData) {
     try {
-        const userRef = db.collection('userProgress').doc(userId);
-        const userDoc = await userRef.get();
+        const db = firebase.firestore();
+        const userRef = db.collection('users').doc(userData.uid);
+        
+        await userRef.set(userData, { merge: true });
+        
+        console.log('✅ User data saved successfully');
+        return { success: true };
+        
+    } catch (error) {
+        console.error('❌ Error saving user data:', error);
+        return { success: false, error: error.message };
+    }
+}
+
+// Load user data from Firestore
+async function loadUserFromFirestore(userId) {
+    try {
+        const db = firebase.firestore();
+        const userDoc = await db.collection('users').doc(userId).get();
         
         if (userDoc.exists) {
-            const userData = userDoc.data();
-            const lastLogin = userData.lastLogin;
-            const now = new Date();
-            const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-            
-            let newStreak = userData.dailyStreak || 0;
-            
-            if (lastLogin) {
-                const lastLoginDate = lastLogin.toDate();
-                const lastLoginDay = new Date(lastLoginDate.getFullYear(), lastLoginDate.getMonth(), lastLoginDate.getDate());
-                const daysDiff = Math.floor((today - lastLoginDay) / (1000 * 60 * 60 * 24));
-                
-                if (daysDiff === 1) {
-                    // Consecutive day - increment streak
-                    newStreak += 1;
-                } else if (daysDiff > 1) {
-                    // Missed days - reset streak
-                    newStreak = 1;
-                }
-                // If daysDiff === 0, it's the same day, keep streak as is
-            } else {
-                // First login
-                newStreak = 1;
-            }
-            
-            await userRef.update({
-                dailyStreak: newStreak,
-                lastLogin: firebase.firestore.Timestamp.fromDate(now)
-            });
-            
-            return newStreak;
-        }
-    } catch (error) {
-        console.error('Error updating daily streak:', error);
-        return 0;
-    }
-}
-
-// Get user dashboard stats
-async function getUserDashboardStats(userId) {
-    try {
-        const userData = await fetchData('userProgress', userId);
-        if (userData) {
-            return {
-                success: true,
-                data: {
-                    points: userData.points || 0,
-                    level: userData.level || 1,
-                    dailyStreak: userData.dailyStreak || 0
-                }
-            };
+            console.log('✅ User data loaded successfully');
+            return { success: true, userData: userDoc.data() };
         } else {
-            return {
-                success: false,
-                error: 'User data not found'
-            };
-        }
-    } catch (error) {
-        console.error('Error fetching user stats:', error);
-        return {
-            success: false,
-            error: error.message
-        };
-    }
-}
-
-// Save data to Firestore (using path-based approach)
-async function saveData(path, data) {
-    try {
-        console.log(`🔄 Saving data to path: ${path}`);
-        console.log('📦 Data to save:', data);
-        
-        const pathParts = path.split('/');
-        let docRef = db;
-        
-        // Build the reference step by step
-        for (let i = 0; i < pathParts.length; i += 2) {
-            if (i + 1 < pathParts.length) {
-                docRef = docRef.collection(pathParts[i]).doc(pathParts[i + 1]);
-            } else {
-                // If odd number of parts, create auto-generated doc ID
-                docRef = docRef.collection(pathParts[i]).doc();
-            }
+            console.log('ℹ️ User document not found');
+            return { success: false, error: 'User not found' };
         }
         
-        await docRef.set(data, { merge: true });
-        console.log(`✅ Successfully saved data to path: ${path}`);
-        return { success: true, docId: docRef.id };
     } catch (error) {
-        console.error(`❌ Error saving data to path ${path}:`, error);
+        console.error('❌ Error loading user data:', error);
         return { success: false, error: error.message };
     }
 }
 
-// Delete data from Firestore
-async function deleteData(path) {
+// ===== AUTHENTICATION HELPERS =====
+
+// Sign in with Google
+async function signInWithGoogle() {
     try {
-        const pathParts = path.split('/');
-        let docRef = db;
+        const auth = firebase.auth();
+        const provider = new firebase.auth.GoogleAuthProvider();
         
-        // Build the reference step by step
-        for (let i = 0; i < pathParts.length; i += 2) {
-            if (i + 1 < pathParts.length) {
-                docRef = docRef.collection(pathParts[i]).doc(pathParts[i + 1]);
-            }
-        }
+        provider.addScope('email');
+        provider.addScope('profile');
         
-        await docRef.delete();
-        console.log(`Successfully deleted data from path: ${path}`);
+        const result = await auth.signInWithPopup(provider);
+        
+        console.log('✅ Google sign-in successful');
+        return { success: true, user: result.user };
+        
+    } catch (error) {
+        console.error('❌ Google sign-in error:', error);
+        return { success: false, error: error.message };
+    }
+}
+
+// Sign out user
+async function signOutUser() {
+    try {
+        const auth = firebase.auth();
+        await auth.signOut();
+        
+        console.log('✅ User signed out successfully');
         return { success: true };
+        
     } catch (error) {
-        console.error(`Error deleting data from path ${path}:`, error);
+        console.error('❌ Sign out error:', error);
         return { success: false, error: error.message };
     }
 }
 
-// Get all documents from a collection
-async function getAllDocuments(collectionPath) {
-    try {
-        console.log(`🔄 Fetching all documents from: ${collectionPath}`);
-        const snapshot = await db.collection(collectionPath).get();
-        const documents = {};
-        snapshot.forEach(doc => {
-            documents[doc.id] = { id: doc.id, ...doc.data() };
-        });
-        console.log(`✅ Successfully fetched ${snapshot.size} documents from ${collectionPath}`);
-        return documents;
-    } catch (error) {
-        console.error(`❌ Error fetching documents from ${collectionPath}:`, error);
-        return {};
-    }
-}
+// ===== STORAGE HELPERS =====
 
-// Get all users for admin panel
-async function getAllUsers() {
+// Upload file to Firebase Storage
+async function uploadFileToStorage(file, path) {
     try {
-        console.log('🔄 Fetching all users...');
-        const snapshot = await db.collection('userProgress').get();
-        const users = [];
-        snapshot.forEach(doc => {
-            const userData = doc.data();
-            users.push({
-                id: doc.id,
-                ...userData,
-                lastLoginFormatted: userData.lastLogin ? userData.lastLogin.toDate().toLocaleDateString() : 'Never'
-            });
-        });
-        console.log(`✅ Successfully fetched ${users.length} users`);
-        return users;
-    } catch (error) {
-        console.error('❌ Error fetching users:', error);
-        return [];
-    }
-}
-
-// Enhanced save function with better error handling
-async function saveDataEnhanced(collection, document, data) {
-    try {
-        console.log(`🔄 Enhanced save: ${collection}/${document}`);
-        console.log('📦 Data:', data);
+        const storage = firebase.storage();
+        const storageRef = storage.ref();
+        const fileRef = storageRef.child(path);
         
-        const docRef = db.collection(collection).doc(document);
-        await docRef.set(data, { merge: true });
+        const uploadTask = await fileRef.put(file);
+        const downloadURL = await uploadTask.ref.getDownloadURL();
         
-        console.log(`✅ Enhanced save successful: ${collection}/${document}`);
-        return { success: true, path: `${collection}/${document}` };
+        console.log('✅ File uploaded successfully:', downloadURL);
+        return { success: true, downloadURL };
+        
     } catch (error) {
-        console.error(`❌ Enhanced save failed: ${collection}/${document}`, error);
+        console.error('❌ File upload error:', error);
         return { success: false, error: error.message };
     }
 }
 
-// Export functions for use in app.js
-window.firebaseUtils = {
-    auth,
-    db,
-    testFirebaseConnection,
-    uploadData,
-    fetchData,
-    saveData,
-    saveDataEnhanced,
-    deleteData,
-    getAllDocuments,
-    getAllUsers,
-    updateDailyStreak,
-    getUserDashboardStats
-};
+// ===== ANALYTICS & LOGGING =====
+
+// Log user activity
+async function logUserActivity(userId, activity, metadata = {}) {
+    try {
+        const db = firebase.firestore();
+        
+        await db.collection('userActivity').add({
+            userId,
+            activity,
+            metadata,
+            timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+            userAgent: navigator.userAgent,
+            url: window.location.href
+        });
+        
+        console.log('✅ User activity logged:', activity);
+        return { success: true };
+        
+    } catch (error) {
+        console.error('❌ Error logging user activity:', error);
+        return { success: false, error: error.message };
+    }
+}
+
+// ===== OFFLINE SUPPORT =====
+
+// Enable Firestore offline persistence
+try {
+    if (typeof firebase !== 'undefined' && firebase.firestore) {
+        firebase.firestore().enablePersistence({
+            synchronizeTabs: true
+        }).then(() => {
+            console.log('✅ Firestore offline persistence enabled');
+        }).catch((error) => {
+            if (error.code === 'failed-precondition') {
+                console.log('⚠️ Multiple tabs open, persistence can only be enabled in one tab at a time.');
+            } else if (error.code === 'unimplemented') {
+                console.log('⚠️ The current browser does not support offline persistence.');
+            }
+        });
+    }
+} catch (error) {
+    console.log('⚠️ Offline persistence setup skipped:', error.message);
+}
+
+// ===== EXPORT FUNCTIONS =====
+
+// Make functions globally available
+if (typeof window !== 'undefined') {
+    window.firebaseHelpers = {
+        saveChapterToFirestore,
+        loadChaptersFromFirestore,
+        updateChapterInFirestore,
+        deleteChapterFromFirestore,
+        saveUserToFirestore,
+        loadUserFromFirestore,
+        signInWithGoogle,
+        signOutUser,
+        uploadFileToStorage,
+        logUserActivity
+    };
+}
+
+console.log('🔥 Firebase configuration and helpers loaded successfully!');
+
+// ===== IMPORTANT SETUP NOTES =====
+/*
+TO SET UP FIREBASE FOR YOUR PROJECT:
+
+1. Go to https://console.firebase.google.com/
+2. Create a new project or select existing project
+3. Go to Project Settings > General > Your apps
+4. Add a web app and copy the configuration
+5. Replace the firebaseConfig object above with your actual config
+6. Enable Authentication > Google sign-in method
+7. Create Firestore database in production mode
+8. Set up security rules for Firestore:
+
+Rules for Firestore:
+```
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Users can read/write their own data
+    match /users/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // Chapters can be read by authenticated users
+    match /chapters/{document} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null; // Restrict this for production
+    }
+    
+    // User activity logging
+    match /userActivity/{document} {
+      allow create: if request.auth != null;
+    }
+  }
+}
+```
+
+9. Enable Firebase Storage if you plan to upload files
+10. Test the connection by running the app
+*/
