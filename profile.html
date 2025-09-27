@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - LinguaLeap V5.0</title>
+    <link rel="stylesheet" href="styles-v5.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="main-app">
+        <!-- Navigation Header -->
+        <nav class="main-nav">
+            <div class="nav-left">
+                <div class="logo">
+                    <i class="fas fa-globe"></i>
+                    <span>LinguaLeap</span>
+                </div>
+            </div>
+            <div class="nav-center">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search settings...">
+                </div>
+            </div>
+            <div class="nav-right">
+                <button class="nav-btn" onclick="goHome()">
+                    <i class="fas fa-home"></i>
+                </button>
+                <div class="user-menu">
+                    <button class="user-avatar" onclick="toggleUserMenu()">
+                        <img id="userAvatar" src="https://via.placeholder.com/40" alt="User">
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Profile Header -->
+            <section class="profile-header">
+                <div class="profile-info">
+                    <div class="profile-avatar">
+                        <img id="profileAvatar" src="https://via.placeholder.com/120" alt="Profile">
+                        <button class="avatar-edit" onclick="editAvatar()">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                    </div>
+                    <div class="profile-details">
+                        <h1 id="profileName">User Name</h1>
+                        <p id="profileEmail">user@example.com</p>
+                        <div class="profile-stats">
+                            <span><i class="fas fa-calendar"></i> Joined <span id="joinDate">Jan 2024</span></span>
+                            <span><i class="fas fa-fire"></i> <span id="profileStreak">7</span> day streak</span>
+                            <span><i class="fas fa-star"></i> <span id="profileXP">1,250</span> XP</span>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn primary" onclick="editProfile()">
+                    <i class="fas fa-edit"></i> Edit Profile
+                </button>
+            </section>
+
+            <!-- Profile Tabs -->
+            <section class="profile-tabs">
+                <div class="tab-header">
+                    <button class="tab-btn active" data-tab="account" onclick="switchTab('account')">
+                        <i class="fas fa-user"></i> Account
+                    </button>
+                    <button class="tab-btn" data-tab="preferences" onclick="switchTab('preferences')">
+                        <i class="fas fa-cog"></i> Preferences
+                    </button>
+                    <button class="tab-btn" data-tab="achievements" onclick="switchTab('achievements')">
+                        <i class="fas fa-trophy"></i> Achievements
+                    </button>
+                    <button class="tab-btn" data-tab="security" onclick="switchTab('security')">
+                        <i class="fas fa-shield-alt"></i> Security
+                    </button>
+                </div>
+
+                <!-- Account Tab -->
+                <div class="tab-content active" id="accountTab">
+                    <div class="settings-group">
+                        <h3><i class="fas fa-user-circle"></i> Personal Information</h3>
+                        <div class="settings-form">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="firstName">First Name</label>
+                                    <input type="text" id="firstName" placeholder="Enter first name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName">Last Name</label>
+                                    <input type="text" id="lastName" placeholder="Enter last name">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" placeholder="Enter email address">
+                            </div>
+                            <div class="form-group">
+                                <label for="bio">Bio</label>
+                                <textarea id="bio" rows="3" placeholder="Tell us about yourself..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="settings-group">
+                        <h3><i class="fas fa-globe"></i> Learning Goals</h3>
+                        <div class="goal-options">
+                            <div class="goal-option">
+                                <input type="radio" id="casual" name="goal" value="casual">
+                                <label for="casual">
+                                    <i class="fas fa-coffee"></i>
+                                    <span>Casual Learner</span>
+                                    <small>5-10 minutes per day</small>
+                                </label>
+                            </div>
+                            <div class="goal-option">
+                                <input type="radio" id="regular" name="goal" value="regular" checked>
+                                <label for="regular">
+                                    <i class="fas fa-book-open"></i>
+                                    <span>Regular Learner</span>
+                                    <small>15-30 minutes per day</small>
+                                </label>
+                            </div>
+                            <div class="goal-option">
+                                <input type="radio" id="intensive" name="goal" value="intensive">
+                                <label for="intensive">
+                                    <i class="fas fa-fire"></i>
+                                    <span>Intensive Learner</span>
+                                    <small>30+ minutes per day</small>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Preferences Tab -->
+                <div class="tab-content" id="preferencesTab">
+                    <div class="settings-group">
+                        <h3><i class="fas fa-palette"></i> Appearance</h3>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <span class="setting-label">Theme</span>
+                                <span class="setting-desc">Choose your preferred color scheme</span>
+                            </div>
+                            <select id="themeSelect" onchange="changeTheme()">
+                                <option value="light">Light</option>
+                                <option value="dark">Dark</option>
+                                <option value="auto">Auto</option>
+                            </select>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <span class="setting-label">Language</span>
+                                <span class="setting-desc">Interface language</span>
+                            </div>
+                            <select id="languageSelect">
+                                <option value="en">English</option>
+                                <option value="es">Español</option>
+                                <option value="fr">Français</option>
+                                <option value="de">Deutsch</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="settings-group">
+                        <h3><i class="fas fa-bell"></i> Notifications</h3>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <span class="setting-label">Daily Reminders</span>
+                                <span class="setting-desc">Get reminded to practice daily</span>
+                            </div>
+                            <label class="toggle">
+                                <input type="checkbox" id="dailyReminders" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <span class="setting-label">Achievement Notifications</span>
+                                <span class="setting-desc">Get notified when you earn badges</span>
+                            </div>
+                            <label class="toggle">
+                                <input type="checkbox" id="achievementNotifs" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <span class="setting-label">Weekly Progress</span>
+                                <span class="setting-desc">Receive weekly progress reports</span>
+                            </div>
+                            <label class="toggle">
+                                <input type="checkbox" id="weeklyProgress">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="settings-group">
+                        <h3><i class="fas fa-volume-up"></i> Audio & Practice</h3>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <span class="setting-label">Sound Effects</span>
+                                <span class="setting-desc">Play sounds for interactions</span>
+                            </div>
+                            <label class="toggle">
+                                <input type="checkbox" id="soundEffects" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <div class="setting-info">
+                                <span class="setting-label">Auto-play Audio</span>
+                                <span class="setting-desc">Automatically play pronunciation audio</span>
+                            </div>
+                            <label class="toggle">
+                                <input type="checkbox" id="autoplayAudio">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Achievements Tab -->
+                <div class="tab-content" id="achievementsTab">
+                    <div class="achievements-overview">
+                        <div class="achievement-stats">
+                            <div class="achievement-stat">
+                                <h3 id="totalBadges">2</h3>
+                                <p>Badges Earned</p>
+                            </div>
+                            <div class="achievement-stat">
+                                <h3 id="totalPoints">1,250</h3>
+                                <p>Achievement Points</p>
+                            </div>
+                            <div class="achievement-stat">
+                                <h3 id="achievementRank">Bronze</h3>
+                                <p>Current Rank</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="achievements-grid" id="profileAchievements">
+                        <!-- Achievements will be loaded here -->
+                    </div>
+                </div>
+
+                <!-- Security Tab -->
+                <div class="tab-content" id="securityTab">
+                    <div class="settings-group">
+                        <h3><i class="fas fa-key"></i> Password & Security</h3>
+                        <div class="security-item">
+                            <div class="security-info">
+                                <span class="security-label">Change Password</span>
+                                <span class="security-desc">Update your account password</span>
+                            </div>
+                            <button class="btn secondary" onclick="changePassword()">
+                                <i class="fas fa-edit"></i> Change
+                            </button>
+                        </div>
+                        <div class="security-item">
+                            <div class="security-info">
+                                <span class="security-label">Two-Factor Authentication</span>
+                                <span class="security-desc">Add an extra layer of security</span>
+                            </div>
+                            <button class="btn secondary" onclick="setup2FA()">
+                                <i class="fas fa-shield-alt"></i> Setup
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="settings-group">
+                        <h3><i class="fas fa-download"></i> Data & Privacy</h3>
+                        <div class="security-item">
+                            <div class="security-info">
+                                <span class="security-label">Download Data</span>
+                                <span class="security-desc">Export your learning data</span>
+                            </div>
+                            <button class="btn secondary" onclick="downloadData()">
+                                <i class="fas fa-download"></i> Export
+                            </button>
+                        </div>
+                        <div class="security-item">
+                            <div class="security-info">
+                                <span class="security-label">Delete Account</span>
+                                <span class="security-desc">Permanently delete your account</span>
+                            </div>
+                            <button class="btn danger" onclick="deleteAccount()">
+                                <i class="fas fa-trash"></i> Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Save Button -->
+            <section class="profile-actions">
+                <button class="btn primary large" onclick="saveProfile()">
+                    <i class="fas fa-save"></i> Save Changes
+                </button>
+                <button class="btn secondary" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </section>
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <button class="nav-item" onclick="goHome()">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </button>
+            <button class="nav-item" onclick="goToCourses()">
+                <i class="fas fa-book"></i>
+                <span>Courses</span>
+            </button>
+            <button class="nav-item" onclick="goToPractice()">
+                <i class="fas fa-dumbbell"></i>
+                <span>Practice</span>
+            </button>
+            <button class="nav-item" onclick="goToProgress()">
+                <i class="fas fa-chart-line"></i>
+                <span>Progress</span>
+            </button>
+            <button class="nav-item active">
+                <i class="fas fa-user"></i>
+                <span>Profile</span>
+            </button>
+        </nav>
+    </div>
+
+    <script src="firebase-v5.js"></script>
+    <script src="profile.js"></script>
+</body>
+</html>

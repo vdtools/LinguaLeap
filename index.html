@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinguaLeap V5.0 - Learn Languages Effortlessly</title>
+    <link rel="stylesheet" href="styles-v5.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-logo">
+                <i class="fas fa-globe"></i>
+                <h1>LinguaLeap</h1>
+                <span class="version">V5.0</span>
+            </div>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+            <p class="loading-text">Initializing your learning journey...</p>
+        </div>
+    </div>
+
+    <!-- Authentication Container -->
+    <div id="authContainer" class="auth-container" style="display: none;">
+        <div class="auth-wrapper">
+            <div class="auth-header">
+                <div class="logo">
+                    <i class="fas fa-globe"></i>
+                    <h1>LinguaLeap</h1>
+                    <span class="version">V5.0</span>
+                </div>
+                <p class="tagline">Master Languages with AI-Powered Learning</p>
+            </div>
+
+            <!-- Login Form -->
+            <div id="loginForm" class="auth-form">
+                <h2><i class="fas fa-sign-in-alt"></i> Welcome Back</h2>
+                <form id="loginFormElement">
+                    <div class="input-group">
+                        <label for="loginEmail">
+                            <i class="fas fa-envelope"></i>
+                            Email Address
+                        </label>
+                        <input type="email" id="loginEmail" name="email" required placeholder="Enter your email">
+                    </div>
+                    <div class="input-group">
+                        <label for="loginPassword">
+                            <i class="fas fa-lock"></i>
+                            Password
+                        </label>
+                        <input type="password" id="loginPassword" name="password" required placeholder="Enter your password">
+                    </div>
+                    <button type="submit" class="auth-btn primary">
+                        <i class="fas fa-sign-in-alt"></i>
+                        Sign In
+                    </button>
+                </form>
+                <div class="auth-footer">
+                    <p>Don't have an account? <button type="button" class="link-btn" onclick="showSignupForm()">Sign Up</button></p>
+                </div>
+            </div>
+
+            <!-- Signup Form -->
+            <div id="signupForm" class="auth-form" style="display: none;">
+                <h2><i class="fas fa-user-plus"></i> Create Account</h2>
+                <form id="signupFormElement">
+                    <div class="input-group">
+                        <label for="signupFirstName">
+                            <i class="fas fa-user"></i>
+                            First Name
+                        </label>
+                        <input type="text" id="signupFirstName" name="firstName" required placeholder="Enter your first name">
+                    </div>
+                    <div class="input-group">
+                        <label for="signupLastName">
+                            <i class="fas fa-user"></i>
+                            Last Name
+                        </label>
+                        <input type="text" id="signupLastName" name="lastName" required placeholder="Enter your last name">
+                    </div>
+                    <div class="input-group">
+                        <label for="signupEmail">
+                            <i class="fas fa-envelope"></i>
+                            Email Address
+                        </label>
+                        <input type="email" id="signupEmail" name="email" required placeholder="Enter your email">
+                    </div>
+                    <div class="input-group">
+                        <label for="signupPassword">
+                            <i class="fas fa-lock"></i>
+                            Password
+                        </label>
+                        <input type="password" id="signupPassword" name="password" required placeholder="Create a password (min 6 characters)">
+                    </div>
+                    <div class="input-group">
+                        <label for="signupConfirmPassword">
+                            <i class="fas fa-lock"></i>
+                            Confirm Password
+                        </label>
+                        <input type="password" id="signupConfirmPassword" name="confirmPassword" required placeholder="Confirm your password">
+                    </div>
+                    <button type="submit" class="auth-btn primary">
+                        <i class="fas fa-user-plus"></i>
+                        Create Account
+                    </button>
+                </form>
+                <div class="auth-footer">
+                    <p>Already have an account? <button type="button" class="link-btn" onclick="showLoginForm()">Sign In</button></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Application -->
+    <div id="mainApp" class="main-app" style="display: none;">
+        <!-- Navigation Header -->
+        <nav class="main-nav">
+            <div class="nav-left">
+                <div class="logo">
+                    <i class="fas fa-globe"></i>
+                    <span>LinguaLeap</span>
+                </div>
+            </div>
+            <div class="nav-center">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search lessons, words, or topics...">
+                </div>
+            </div>
+            <div class="nav-right">
+                <button class="nav-btn" onclick="showNotifications()">
+                    <i class="fas fa-bell"></i>
+                    <span class="notification-badge">3</span>
+                </button>
+                <div class="user-menu">
+                    <button class="user-avatar" onclick="toggleUserMenu()">
+                        <img id="userAvatar" src="https://via.placeholder.com/40" alt="User">
+                    </button>
+                    <div id="userDropdown" class="user-dropdown">
+                        <div class="user-info">
+                            <img id="userAvatarLarge" src="https://via.placeholder.com/60" alt="User">
+                            <div>
+                                <h4 id="userFullName">User Name</h4>
+                                <p id="userEmailDisplay">user@example.com</p>
+                            </div>
+                        </div>
+                        <div class="dropdown-menu">
+                            <a href="#" onclick="showProfile()">
+                                <i class="fas fa-user"></i> Profile Settings
+                            </a>
+                            <a href="#" onclick="showProgress()">
+                                <i class="fas fa-chart-line"></i> Learning Progress
+                            </a>
+                            <a href="#" onclick="showSettings()">
+                                <i class="fas fa-cog"></i> Settings
+                            </a>
+                            <hr>
+                            <a href="#" onclick="logout()" class="logout">
+                                <i class="fas fa-sign-out-alt"></i> Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Dashboard View -->
+            <div id="dashboardView" class="view active">
+                <!-- Welcome Section -->
+                <section class="welcome-section">
+                    <div class="welcome-content">
+                        <h1>Welcome back, <span id="welcomeUserName">User</span>! 👋</h1>
+                        <p>Continue your language learning journey</p>
+                        <div class="quick-stats">
+                            <div class="stat-card">
+                                <i class="fas fa-fire"></i>
+                                <div>
+                                    <h3 id="streakCount">7</h3>
+                                    <p>Day Streak</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <i class="fas fa-star"></i>
+                                <div>
+                                    <h3 id="xpCount">1,250</h3>
+                                    <p>Total XP</p>
+                                </div>
+                            </div>
+                            <div class="stat-card">
+                                <i class="fas fa-trophy"></i>
+                                <div>
+                                    <h3 id="badgeCount">12</h3>
+                                    <p>Badges</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="welcome-visual">
+                        <div class="progress-circle">
+                            <svg class="progress-ring" width="120" height="120">
+                                <circle cx="60" cy="60" r="50" stroke="#ddd" stroke-width="8" fill="none"/>
+                                <circle id="progressCircle" cx="60" cy="60" r="50" stroke="#4CAF50" stroke-width="8" fill="none" stroke-dasharray="314" stroke-dashoffset="157"/>
+                            </svg>
+                            <div class="progress-text">
+                                <span id="progressPercent">50%</span>
+                                <small>Complete</small>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Current Course -->
+                <section class="current-course">
+                    <div class="section-header">
+                        <h2><i class="fas fa-book-open"></i> Continue Learning</h2>
+                        <button class="btn secondary" onclick="showAllCourses()">
+                            <i class="fas fa-th-large"></i> All Courses
+                        </button>
+                    </div>
+                    <div class="course-card current">
+                        <div class="course-image">
+                            <img src="https://via.placeholder.com/300x200?text=Spanish+Course" alt="Spanish Course">
+                            <div class="course-badge">
+                                <i class="fas fa-play"></i>
+                            </div>
+                        </div>
+                        <div class="course-content">
+                            <h3>Spanish Fundamentals</h3>
+                            <p>Master the basics of Spanish with interactive lessons</p>
+                            <div class="course-progress">
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 65%"></div>
+                                </div>
+                                <span class="progress-text">13/20 lessons completed</span>
+                            </div>
+                            <div class="course-actions">
+                                <button class="btn primary" onclick="continueLearning()">
+                                    <i class="fas fa-play"></i> Continue
+                                </button>
+                                <button class="btn secondary" onclick="showCourseDetails()">
+                                    <i class="fas fa-info"></i> Details
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Quick Actions -->
+                <section class="quick-actions">
+                    <div class="section-header">
+                        <h2><i class="fas fa-zap"></i> Quick Practice</h2>
+                    </div>
+                    <div class="action-grid">
+                        <div class="action-card" onclick="startQuickPractice('vocabulary')">
+                            <i class="fas fa-book"></i>
+                            <h3>Vocabulary</h3>
+                            <p>Review and learn new words</p>
+                        </div>
+                        <div class="action-card" onclick="startQuickPractice('grammar')">
+                            <i class="fas fa-language"></i>
+                            <h3>Grammar</h3>
+                            <p>Practice sentence structure</p>
+                        </div>
+                        <div class="action-card" onclick="startQuickPractice('listening')">
+                            <i class="fas fa-headphones"></i>
+                            <h3>Listening</h3>
+                            <p>Improve comprehension</p>
+                        </div>
+                        <div class="action-card" onclick="startQuickPractice('speaking')">
+                            <i class="fas fa-microphone"></i>
+                            <h3>Speaking</h3>
+                            <p>Practice pronunciation</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Recent Activity -->
+                <section class="recent-activity">
+                    <div class="section-header">
+                        <h2><i class="fas fa-clock"></i> Recent Activity</h2>
+                        <button class="btn secondary" onclick="showAllActivity()">
+                            <i class="fas fa-list"></i> View All
+                        </button>
+                    </div>
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-trophy" style="color: #ffd700;"></i>
+                            </div>
+                            <div class="activity-content">
+                                <h4>Badge Earned!</h4>
+                                <p>Vocabulary Master - Level 3</p>
+                                <span class="activity-time">2 hours ago</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-check-circle" style="color: #4CAF50;"></i>
+                            </div>
+                            <div class="activity-content">
+                                <h4>Lesson Completed</h4>
+                                <p>Basic Conversations - Lesson 13</p>
+                                <span class="activity-time">5 hours ago</span>
+                            </div>
+                        </div>
+                        <div class="activity-item">
+                            <div class="activity-icon">
+                                <i class="fas fa-fire" style="color: #ff6b35;"></i>
+                            </div>
+                            <div class="activity-content">
+                                <h4>Streak Milestone</h4>
+                                <p>7 days in a row! Keep it up!</p>
+                                <span class="activity-time">1 day ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <button class="nav-item active" onclick="showView('dashboard')">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </button>
+            <button class="nav-item" onclick="showView('courses')">
+                <i class="fas fa-book"></i>
+                <span>Courses</span>
+            </button>
+            <button class="nav-item" onclick="showView('practice')">
+                <i class="fas fa-dumbbell"></i>
+                <span>Practice</span>
+            </button>
+            <button class="nav-item" onclick="showView('progress')">
+                <i class="fas fa-chart-line"></i>
+                <span>Progress</span>
+            </button>
+            <button class="nav-item" onclick="showView('profile')">
+                <i class="fas fa-user"></i>
+                <span>Profile</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="notificationToast" class="notification-toast">
+        <div class="toast-content">
+            <i class="fas fa-info-circle"></i>
+            <span id="toastMessage">Notification message</span>
+        </div>
+        <button class="toast-close" onclick="hideNotification()">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <!-- Scripts -->
+    <script src="firebase-v5.js"></script>
+    <script src="app-v5.js"></script>
+</body>
+</html>

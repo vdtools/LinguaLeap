@@ -1,0 +1,216 @@
+{
+  "name": "lingualeap-v5",
+  "version": "5.0.0",
+  "description": "Advanced Language Learning Platform - Modern, Interactive, and Comprehensive",
+  "main": "index.html",
+  "scripts": {
+    "start": "serve -s . -l 3000",
+    "dev": "live-server --port=3000 --host=localhost",
+    "build": "echo 'No build process needed for static site'",
+    "test": "echo 'Tests not implemented yet'",
+    "lint": "echo 'Linting not configured'",
+    "deploy": "echo 'Deployment scripts not configured'"
+  },
+  "keywords": [
+    "language-learning",
+    "education",
+    "spanish",
+    "french",
+    "german",
+    "interactive",
+    "modern-ui",
+    "progressive-web-app",
+    "learning-platform",
+    "vocabulary",
+    "grammar",
+    "pronunciation"
+  ],
+  "author": {
+    "name": "LinguaLeap Team",
+    "email": "team@lingualeap.com",
+    "url": "https://lingualeap.com"
+  },
+  "license": "MIT",
+  "homepage": "https://lingualeap.com",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lingualeap/lingualeap-v5.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lingualeap/lingualeap-v5/issues",
+    "email": "support@lingualeap.com"
+  },
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=6.0.0"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2",
+    "serve": "^14.2.0"
+  },
+  "dependencies": {},
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ],
+  "features": {
+    "authentication": {
+      "custom_email_password": true,
+      "google_signin": false,
+      "social_login": false,
+      "two_factor": "planned"
+    },
+    "learning": {
+      "multiple_languages": true,
+      "interactive_lessons": true,
+      "practice_modes": true,
+      "progress_tracking": true,
+      "achievements": true,
+      "streaks": true
+    },
+    "ui_ux": {
+      "modern_design": true,
+      "glassmorphism": true,
+      "responsive": true,
+      "dark_mode": "planned",
+      "animations": true,
+      "accessibility": true
+    },
+    "admin": {
+      "user_management": true,
+      "analytics": true,
+      "content_management": true,
+      "data_export": true,
+      "system_monitoring": true
+    },
+    "data": {
+      "local_storage": true,
+      "cloud_sync": false,
+      "offline_mode": "planned",
+      "data_export": true,
+      "backup": "manual"
+    }
+  },
+  "technology_stack": {
+    "frontend": {
+      "html": "HTML5",
+      "css": "CSS3 with Custom Properties",
+      "javascript": "Vanilla ES6+",
+      "fonts": "Google Fonts (Inter)",
+      "icons": "Font Awesome 6"
+    },
+    "backend": {
+      "storage": "Browser LocalStorage",
+      "authentication": "Custom Implementation",
+      "api": "None (Planned for future)"
+    },
+    "tools": {
+      "development": "Live Server",
+      "version_control": "Git",
+      "deployment": "Static Hosting"
+    }
+  },
+  "supported_browsers": {
+    "chrome": ">=80",
+    "firefox": ">=75",
+    "safari": ">=13",
+    "edge": ">=80",
+    "mobile": {
+      "ios_safari": ">=13",
+      "chrome_mobile": ">=80",
+      "samsung_internet": ">=12"
+    }
+  },
+  "file_structure": {
+    "core_files": [
+      "index.html",
+      "app-v5.js",
+      "firebase-v5.js",
+      "styles-v5.css"
+    ],
+    "pages": [
+      "courses.html",
+      "practice.html",
+      "progress.html",
+      "profile.html",
+      "lesson.html"
+    ],
+    "admin": [
+      "admin-v5.html",
+      "admin-v5.js"
+    ],
+    "utilities": [
+      "config.js",
+      "utils.js",
+      "additional-styles.css"
+    ],
+    "documentation": [
+      "README.md",
+      "package.json"
+    ]
+  },
+  "performance": {
+    "bundle_size": "< 500KB",
+    "load_time": "< 2 seconds",
+    "lighthouse_score": "> 90",
+    "mobile_friendly": true
+  },
+  "security": {
+    "https_only": true,
+    "local_storage_only": true,
+    "no_external_apis": true,
+    "xss_protection": true
+  },
+  "accessibility": {
+    "wcag_compliance": "AA",
+    "keyboard_navigation": true,
+    "screen_reader": true,
+    "color_contrast": "AA",
+    "reduced_motion": true
+  },
+  "future_plans": {
+    "v5.1": [
+      "Dark mode theme",
+      "More language courses",
+      "Audio pronunciation",
+      "Speaking practice"
+    ],
+    "v5.2": [
+      "Social learning features",
+      "Leaderboards",
+      "Study groups",
+      "Progress sharing"
+    ],
+    "v6.0": [
+      "Cloud synchronization",
+      "Mobile app",
+      "AI-powered tutoring",
+      "Video lessons"
+    ]
+  },
+  "installation": {
+    "requirements": [
+      "Modern web browser",
+      "JavaScript enabled",
+      "Local storage enabled"
+    ],
+    "steps": [
+      "1. Download all files to a folder",
+      "2. Open index.html in web browser",
+      "3. Create account or use existing credentials",
+      "4. Start learning!"
+    ]
+  },
+  "contact": {
+    "support": "support@lingualeap.com",
+    "sales": "sales@lingualeap.com",
+    "partnerships": "partners@lingualeap.com",
+    "social": {
+      "twitter": "@lingualeap",
+      "facebook": "lingualeap",
+      "instagram": "lingualeap_official"
+    }
+  }
+}

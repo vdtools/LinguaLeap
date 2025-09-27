@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Courses - LinguaLeap V5.0</title>
+    <link rel="stylesheet" href="styles-v5.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="main-app">
+        <!-- Navigation Header -->
+        <nav class="main-nav">
+            <div class="nav-left">
+                <div class="logo">
+                    <i class="fas fa-globe"></i>
+                    <span>LinguaLeap</span>
+                </div>
+            </div>
+            <div class="nav-center">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search courses...">
+                </div>
+            </div>
+            <div class="nav-right">
+                <button class="nav-btn" onclick="goHome()">
+                    <i class="fas fa-home"></i>
+                </button>
+                <div class="user-menu">
+                    <button class="user-avatar" onclick="toggleUserMenu()">
+                        <img id="userAvatar" src="https://via.placeholder.com/40" alt="User">
+                    </button>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Page Header -->
+            <section class="page-header">
+                <h1><i class="fas fa-book"></i> Available Courses</h1>
+                <p>Choose from our wide selection of language courses</p>
+            </section>
+
+            <!-- Course Filters -->
+            <section class="course-filters">
+                <div class="filter-group">
+                    <button class="filter-btn active" data-filter="all">All Languages</button>
+                    <button class="filter-btn" data-filter="beginner">Beginner</button>
+                    <button class="filter-btn" data-filter="intermediate">Intermediate</button>
+                    <button class="filter-btn" data-filter="advanced">Advanced</button>
+                </div>
+            </section>
+
+            <!-- Courses Grid -->
+            <section class="courses-grid" id="coursesGrid">
+                <!-- Courses will be loaded here -->
+            </section>
+        </main>
+
+        <!-- Bottom Navigation -->
+        <nav class="bottom-nav">
+            <button class="nav-item" onclick="goHome()">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </button>
+            <button class="nav-item active">
+                <i class="fas fa-book"></i>
+                <span>Courses</span>
+            </button>
+            <button class="nav-item" onclick="goToPractice()">
+                <i class="fas fa-dumbbell"></i>
+                <span>Practice</span>
+            </button>
+            <button class="nav-item" onclick="goToProgress()">
+                <i class="fas fa-chart-line"></i>
+                <span>Progress</span>
+            </button>
+            <button class="nav-item" onclick="goToProfile()">
+                <i class="fas fa-user"></i>
+                <span>Profile</span>
+            </button>
+        </nav>
+    </div>
+
+    <script src="firebase-v5.js"></script>
+    <script src="courses.js"></script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lesson - LinguaLeap V5.0</title>
+    <link rel="stylesheet" href="styles-v5.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="lesson-container">
+        <!-- Lesson Header -->
+        <header class="lesson-header">
+            <div class="lesson-nav">
+                <button class="nav-btn" onclick="exitLesson()" title="Exit Lesson">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div class="lesson-progress">
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="lessonProgress" style="width: 0%"></div>
+                    </div>
+                    <span class="progress-text" id="progressText">0/10</span>
+                </div>
+                <div class="lesson-hearts">
+                    <i class="fas fa-heart" id="heart1"></i>
+                    <i class="fas fa-heart" id="heart2"></i>
+                    <i class="fas fa-heart" id="heart3"></i>
+                </div>
+            </div>
+            
+            <div class="lesson-info">
+                <h1 id="lessonTitle">Basic Greetings</h1>
+                <p id="lessonSubtitle">Learn how to say hello and introduce yourself</p>
+            </div>
+        </header>
+
+        <!-- Lesson Content -->
+        <main class="lesson-content" id="lessonContent">
+            <!-- Content will be dynamically loaded here -->
+        </main>
+
+        <!-- Lesson Footer -->
+        <footer class="lesson-footer">
+            <button class="btn secondary" id="skipBtn" onclick="skipQuestion()" style="display: none;">
+                Skip
+            </button>
+            <button class="btn primary large" id="checkBtn" onclick="checkAnswer()" disabled>
+                Check
+            </button>
+        </footer>
+    </div>
+
+    <!-- Lesson Complete Modal -->
+    <div id="lessonCompleteModal" class="lesson-modal" style="display: none;">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="success-animation">
+                    <i class="fas fa-trophy"></i>
+                </div>
+                <h2>Lesson Complete!</h2>
+                <p>Great job! You've completed this lesson.</p>
+            </div>
+            <div class="modal-body">
+                <div class="lesson-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-target"></i>
+                        <span class="stat-label">Accuracy</span>
+                        <span class="stat-value" id="finalAccuracy">90%</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-star"></i>
+                        <span class="stat-label">XP Earned</span>
+                        <span class="stat-value" id="xpEarned">+50</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-clock"></i>
+                        <span class="stat-label">Time</span>
+                        <span class="stat-value" id="timeSpent">3:24</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="btn secondary" onclick="reviewLesson()">
+                    <i class="fas fa-redo"></i> Review
+                </button>
+                <button class="btn primary" onclick="nextLesson()">
+                    <i class="fas fa-arrow-right"></i> Continue
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="firebase-v5.js"></script>
+    <script src="lesson.js"></script>
+</body>
+</html>
